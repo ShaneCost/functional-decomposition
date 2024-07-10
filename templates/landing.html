@@ -1,4 +1,4 @@
-{% block content %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,10 +6,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
 <body>
-    welcome
+
+    <br><br>
+
+    <h1>
+        Functional Decomposition Design Application
+    </h1>
+    
+    <div class="container">
+        <b>Introduction</b>: Functional decomposition is a tool engineers use to break
+        down the overall function of a device, system or process into smaller parts.
+        Functional decomposition is useful for gaining better understanding of a
+        device, system, or process to be designed and for guiding decision making
+        during the design process.
+        You will use this web application to complete a system design in the form
+        of a 3‐level (i.e. Level 0, Level 1, and Level 2) functional decomposition, and
+        a behavioral model if applicable to part of your system design.
+        The finished product in using this application will include block diagrams of
+        Level 0, Level 1, and Level 2 subsystems and corresponding module
+        description tables of all subsystems with proper module name, inputs,
+        outputs, and functionality (see pp. 93‐98 of “Design for Electrical and
+        Computer Engineers: Theory, Concepts, and Practice by Ford and Coulston
+        for example). Include behavioral model(s) of your subsystem(s) if
+        applicable.
+    </div>
+
 </body>
 </html>
-
-{% endblock content %}
