@@ -7,31 +7,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <script src="{% static 'scripts/landing.js' %}"></script>
 </head>
 <body>
 
-    <br><br>
+    <br>
 
     <h1>
         Functional Decomposition Design Application
     </h1>
     
     <div class="container">
-        <b>Introduction</b>: Functional decomposition is a tool engineers use to break
-        down the overall function of a device, system or process into smaller parts.
-        Functional decomposition is useful for gaining better understanding of a
-        device, system, or process to be designed and for guiding decision making
-        during the design process.
-        You will use this web application to complete a system design in the form
-        of a 3‐level (i.e. Level 0, Level 1, and Level 2) functional decomposition, and
-        a behavioral model if applicable to part of your system design.
-        The finished product in using this application will include block diagrams of
-        Level 0, Level 1, and Level 2 subsystems and corresponding module
-        description tables of all subsystems with proper module name, inputs,
-        outputs, and functionality (see pp. 93‐98 of “Design for Electrical and
-        Computer Engineers: Theory, Concepts, and Practice by Ford and Coulston
-        for example). Include behavioral model(s) of your subsystem(s) if
-        applicable.
+        <p>
+            <b>Introduction</b>:<br>
+            Functional decomposition is a tool engineers use to break
+            down the overall function of a device, system or process into smaller parts.
+            Functional decomposition is useful for gaining better understanding of a
+            device, system, or process to be designed and for guiding decision making
+            during the design process.
+            You will use this web application to complete a system design in the form
+            of a 3‐level (i.e. Level 0, Level 1, and Level 2) functional decomposition, and
+            a behavioral model if applicable to part of your system design.
+            The finished product in using this application will include block diagrams of
+            Level 0, Level 1, and Level 2 subsystems and corresponding module
+            description tables of all subsystems with proper module name, inputs,
+            outputs, and functionality (see pp. 93‐98 of “Design for Electrical and
+            Computer Engineers: Theory, Concepts, and Practice by Ford and Coulston
+            for example). Include behavioral model(s) of your subsystem(s) if
+            applicable.
+        </p>
+    </div>
+
+    <button onclick="showGrading()" id="grading-button">Click for Grading Criteria</button>
+
+    <div id="grading-text" style="display: none;">
+        <div class="container">
+            <p>
+                <b>Key Grading Criteria</b>:<br>
+                1. Each block (i.e. system or subsystem) must have at least one input and
+                one output. <br>
+                2. All signals (representing the input and outputs) must be properly labeled
+                at each and every level, and to/from each and every subsystem; the signal
+                names should be consistent across all levels 0‐2. <br>
+                3. All inputs/outputs must be measurable for test/verification. Note that
+                each subsystem/system is to be tested (i.e, unit test and integration test)
+                and the input/output signals must exist to facilitate such tests. <br>
+                4. Module description should be provided in tabular form for all blocks at
+                the 0‐2 levels. <br>
+                5. At least one level‐2 block diagram exists.
+            </p>
+        </div>
+
+        <a href="{% url 'login' %}">Login</a> 
     </div>
 
 </body>
