@@ -1,0 +1,151 @@
+@import url('base.css');
+
+.back-button {
+    display: inline-flex;
+    justify-content: center;
+    right: 10px;
+    position: relative;
+    color: #007bff;
+    background-color: #f0f8ff;
+}
+
+.back-button:hover{
+    color: #0056b3;
+    background-color: #f0f8ff;
+    position: relative;
+}
+
+#button-container {
+    display: flex;
+}
+
+#complete-button {
+    background-color: green;
+}
+
+#complete-button:hover {
+    background-color: darkgreen;
+}
+
+input {
+    box-sizing: content-box;
+    padding: 2px;
+    margin: 2px;
+}
+
+#inputs, 
+#outputs {
+    border-color: black;
+    border: 10px;
+    border-width: 1px;
+    border-radius: 5%;
+}
+
+.remove-button {
+    background-color: red;
+    border-radius: 50%;
+    display: inline-flex; /* Use flexbox to center content */
+    align-items: center; /* Vertically center items */
+    justify-content: center; /* Horizontally center items */
+    width: 15px; /* Adjust width as needed */
+    height: 15px; /* Adjust height as needed */
+    font-size: 10px;
+    
+}
+
+.remove-button:hover {
+    background-color: darkred;
+}
+
+#submission-container {
+    display: none;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center the children horizontally */
+    text-align: center; /* Center the text inside the children */
+}
+
+#submission-container h2 {
+    display: block; /* Ensure the header is block display */
+}
+
+table {
+    border-collapse: collapse;
+    width: 60%; 
+    margin: 0 auto; /* Center the table horizontally */
+}
+
+table, th, td {
+    border: 1px solid black; /* Add borders to the table and cells */
+    padding: 10px; /* Add padding to cells */
+}
+
+th, td {
+    text-align: left; /* Align text to the left inside cells */
+}
+
+.arrow {
+    width: 120px;
+}
+  
+.line {
+    margin-top: 14px;
+    width: 90px;
+    background: blue;
+    height: 10px;
+    float: left;
+}
+  
+.point {
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 30px solid blue;
+    float: right;
+}
+
+
+
+
+
+#diagram-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+#diagram {
+    display: flex;
+    align-items: center;
+    border: 2px solid black;
+    padding: 20px;
+    background-color: white;
+}
+
+.input-section, .output-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 0 20px;
+}
+
+.module {
+    border: 2px solid black;
+    padding: 20px;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.module p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.input-section p, .output-section p {
+    margin: 10px 0;
+}
+
+#generated-image {
+    margin-top: 20px;
+}

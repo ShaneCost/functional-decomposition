@@ -6,11 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Level 0 Design</title>
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/design.css' %}">
+    <script src="{% static 'scripts/design.js' %}"></script>
 </head>
 <body>
-
-    <br>
+    <header>
+        <a href="{% url 'landing' %}" class="back-button"><u>Back to Homepage</u></a>
+    </header>
 
     <h1>
         Level 0 Design
@@ -28,7 +30,7 @@
             5. Describe the functionality of the module.
             Click the “Add Input” / “Add Output” buttons to include additional inputs /
             outputs as appropriate to your level 0 design.<br> <br>
-            
+
             When your level 0 design is complete, click the ‘Design Complete’ button
             and a block diagram and associated table for your design will be provided
             along with additional questions for you to consider regarding your level 0
@@ -36,7 +38,73 @@
         </p>
     </div>
 
+    <div class="container">
+        <form id="main-form">
+            <label for="project-name"><b>Project Name:</b></label> 
+            <input type="text" name="project-name" id="project-name" oninput="adjustInputSize(this)">
+            
+            <br><br>
+            
+            <label for="module-name"><b>Module Name:</b></label> 
+            <input type="text" name="module-name" id="module-name" oninput="adjustInputSize(this)">
+            
+            <br><br>
+            
+            <div id="inputs">
+                <label for="input-1"><b>Input 1:</b></label> 
+                <input type="text" name="input-1" id="input-1" oninput="adjustInputSize(this)"><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                <label for="input-description-1"><b>Input 1 Description :</b></label> 
+                <input type="text" name="input-description-1" id="input-description-1" oninput="adjustInputSize(this)">
+            </div>
+
+            <br><br>
+            
+            <div id="outputs">
+                <label for="output-1"><b>Output 1:</b></label> 
+                <input type="text" name="output-1" id="output-1" oninput="adjustInputSize(this)"><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                <label for="output-description-1"><b>Output 1 Description :</b></label>
+                <input type="text" name="output-description-1" id="output-description-1" oninput="adjustInputSize(this)">
+            </div>
+
+            <br><br>
+
+            <label for="functionality"><b>Functionality:</b></label> 
+            <input type="text" name="functionality" id="functionality" oninput="adjustInputSize(this)">
+
+            <br><br>
+
+            <div id="button-container">
+                <button id="add-input">Add Input</button>
+                <button id="add-output">Add Output</button>
+                <button id="complete-button">Design Complete</button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="container" id="submission-container">
+        
+        
+    </div>
+
+    <div id="diagram-container" style="display: none;">
+        <div id="diagram">
+            <div class="input-section">
+            </div>
+            <div class="module">
+                <p id="module-name"></p>
+            </div>
+            <div class="output-section">
+            </div>
+        </div>
+    </div>
+    <img id="generated-image" src="" alt="Generated Diagram" style="display:none;">
+
     
     
+
+   
 </body>
 </html>
