@@ -20,10 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form submission event listener
     document.getElementById('complete-button').addEventListener('click', function(event) {
         event.preventDefault();
-        // Handle form submission (e.g., save data, process inputs)
-        createTable();
         populateDiagram();
-        captureDiagram();
+        createTable();
         console.log('Form submitted!');
     });
 
@@ -167,16 +165,74 @@ document.addEventListener('DOMContentLoaded', function() {
         outp--;
     }
 
-    function createTable(){
-        let div = document.getElementById("submission-container");
-        div.style.display = 'flex';
+    function populateDiagram() {
+        // Collect the correct div, clear it, and make it visible
+        const submission_container = document.getElementById('submission-container')
+        submission_container.innerHTML = ''
+        submission_container.style.display = 'flex'
 
-        div.innerHTML = "";
-
+        // Create and add header
         let header = document.createElement("h2");
         header.innerHTML = document.getElementById("project-name").value + ": Level 0 Design";
+        submission_container.appendChild(header);
 
-        div.appendChild(header);
+        // Create div for diagram
+        const diagram = document.createElement('div')
+        diagram.setAttribute('id', 'diagram')
+        submission_container.appendChild(diagram)
+
+        // Create input section
+        const inputSection = document.createElement('div')
+        inputSection.setAttribute('class', 'input-section')
+        diagram.appendChild(inputSection)
+
+        // Create box for module 
+        const module = document.createElement('div')
+        module.setAttribute('class', 'module')
+        const module_name = document.createElement('p')
+        module_name.setAttribute('id', 'module-name')
+        module.appendChild(module_name)
+        diagram.appendChild(module)
+        
+        // Create output section
+        const outputSection = document.createElement('div')
+        outputSection.setAttribute('class', 'input-section')
+        diagram.appendChild(outputSection)
+
+        // Collect input and output data
+        const inputs = document.querySelectorAll('#inputs input[id^="input-"]');
+        const outputs = document.querySelectorAll('#outputs input[id^="output-"]');
+        const moduleName = document.getElementById('module-name').value;
+        
+        // Collect module name
+        const moduleElement = document.querySelector('.module p');
+        
+        // Add inputs to diagram
+        inputs.forEach(input => {
+            if (!input.id.startsWith('input-description-')) {
+                const p = document.createElement('p');
+                p.innerHTML = input.value + '<span class="arrow">&rarr;</span>';
+                inputSection.appendChild(p);
+            }
+        });
+
+        // Add outputs to diagram
+        outputs.forEach(output => {
+            if (!output.id.startsWith('output-description-')) {
+                const p = document.createElement('p');
+                p.innerHTML = '<span class="arrow">&rarr;</span>&nbsp;&nbsp;&nbsp;&nbsp;' + output.value;
+                outputSection.appendChild(p);
+            }
+        });
+        
+        // Add module name
+        moduleElement.textContent = moduleName;      
+
+    }
+
+    function createTable(){
+        // Get the correct div
+        let div = document.getElementById("submission-container");
 
         // Create table element
         let table = document.createElement('table');
@@ -235,7 +291,6 @@ document.addEventListener('DOMContentLoaded', function() {
         row3.appendChild(cell3_2);
         table.appendChild(row3);
 
-
         // Fourth row
         let row4 = document.createElement('tr');
         let cell4 = document.createElement('td');
@@ -246,52 +301,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Append table to container
         div.appendChild(table);
-    }
+        div.appendChild(document.createElement('br'));
 
+        const pdfButton = document.createElement('button')
+        pdfButton.textContent = 'Print PDF'
 
-
-
-
-
-
-    function populateDiagram() {
-        const inputs = document.querySelectorAll('#inputs input[type="text"]');
-        const outputs = document.querySelectorAll('#outputs input[type="text"]');
-        const moduleName = document.getElementById('module-name').value;
-
-        const inputSection = document.querySelector('.input-section');
-        const outputSection = document.querySelector('.output-section');
-        const moduleElement = document.querySelector('.module p');
-
-        inputSection.innerHTML = '';
-        outputSection.innerHTML = '';
-
-        inputs.forEach(input => {
-            const p = document.createElement('p');
-            p.textContent = input.value + ' ----->';
-            inputSection.appendChild(p);
+        pdfButton.addEventListener('click', function() {
+            generatePDF();
         });
 
-        outputs.forEach(output => {
-            const p = document.createElement('p');
-            p.textContent = '-----> '+ output.value;
-            outputSection.appendChild(p);
-        });
-
-        moduleElement.textContent = moduleName;
+        div.appendChild(pdfButton)
     }
 
-    function captureDiagram() {
-        const diagramContainer = document.getElementById('diagram-container');
-        diagramContainer.style.display = 'block';
-
-        html2canvas(document.querySelector("#diagram")).then(canvas => {
-            const img = document.getElementById('generated-image');
-            img.src = canvas.toDataURL("image/png");
-            img.style.display = 'block';
-            diagramContainer.style.display = 'none';
+    function generatePDF() {
+        const doc = new jsPDF();
+    
+        // Get the HTML content of div
+        const content = document.getElementById('submission-container');
+    
+        // Options for jsPDF
+        const options = {
+            margin: 1,
+            filename: 'generated.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+    
+        // Generate PDF from HTML
+        doc.fromHTML(content.innerHTML, options, function () {
+            doc.save('design.pdf');
         });
     }
+ 
 });
 
 // Function to adjust input size dynamically
