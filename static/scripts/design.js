@@ -314,7 +314,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function generatePDF() {
-        const doc = new jsPDF();
+        // window.jsPDF = window.jspdf.jsPDF();
+        var doc = new jsPDF();
     
         // Get the HTML content of div
         const content = document.getElementById('submission-container');
@@ -332,7 +333,7 @@ document.addEventListener('DOMContentLoaded', function() {
         doc.fromHTML(content.innerHTML, options, function () {
             doc.save('design.pdf');
         });
-    }
+    }    
  
 });
 
