@@ -303,41 +303,56 @@ document.addEventListener('DOMContentLoaded', function() {
         div.appendChild(table);
         div.appendChild(document.createElement('br'));
 
-        const pdfButton = document.createElement('button')
-        pdfButton.textContent = 'Print PDF'
+        document.getElementById('feedback-container').style.display = 'block'
 
-        pdfButton.addEventListener('click', function() {
-            generatePDF();
-        });
+        // const pdfButton = document.createElement('button')
+        // pdfButton.textContent = 'Print PDF'
 
-        div.appendChild(pdfButton)
+        // pdfButton.addEventListener('click', function() {
+        //     generatePDF();
+        // });
+
+        // div.appendChild(pdfButton)
     }
 
-    function generatePDF() {
-        // window.jsPDF = window.jspdf.jsPDF();
-        var doc = new jsPDF();
+    // function generatePDF(name){
+    //     let mywindow = window.open('x', 'PRINT', 'height=650,width=900,top=100,left=150');
     
-        // Get the HTML content of div
-        const content = document.getElementById('submission-container');
+    //     mywindow.document.write(`<html><head><title></title>`);
+    //     mywindow.document.write('<link rel="stylesheet" href="http://127.0.0.1:8000/static/css/design.css">')
+    //     mywindow.document.write('</head><body >');
+    //     mywindow.document.write(document.getElementById('submission-container').innerHTML);
+    //     mywindow.document.write('</body></html>');
     
-        // Options for jsPDF
-        const options = {
-            margin: 1,
-            filename: 'generated.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
+    //     mywindow.document.close(); // necessary for IE >= 10
+    //     mywindow.focus(); // necessary for IE >= 10*/
     
-        // Generate PDF from HTML
-        doc.fromHTML(content.innerHTML, options, function () {
-            doc.save('design.pdf');
-        });
-    }    
+    //     mywindow.print();
+    //     mywindow.close();
+    
+    //     return true;
+    // }
  
 });
 
 // Function to adjust input size dynamically
 function adjustInputSize(input) {
     input.setAttribute('size', input.value.length);
+}
+
+function generatePDF(){
+    let mywindow = window.open('PDF', 'PRINT', 'height=650,width=900,top=100,left=150');
+
+    mywindow.document.write(`<html><head><title>Functional Decomposition</title>`);
+    mywindow.document.write('<link rel="stylesheet" href="http://127.0.0.1:8000/static/css/design.css">')
+    mywindow.document.write('</head><body>');
+    mywindow.document.write(document.getElementById('submission-container').innerHTML);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close(); 
+
+    mywindow.print();
+    mywindow.close();
+
+    return true;
 }

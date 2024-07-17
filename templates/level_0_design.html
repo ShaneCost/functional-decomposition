@@ -88,6 +88,29 @@
     <div class="container" id="submission-container">
          
     </div>
+
+    <div class='container' id="feedback-container">
+        <b>Feedback on level 0 design</b>:
+        
+        A common error in creating functional decomposition diagrams and tables
+        is to fail to be consistent in naming signals. For the level 0 diagram this app
+        has taken the names you provided for the input(s) and output(s) and used
+        them both in the diagram and in the table to ensure consistency. As you
+        proceed to level 1 and level 2 designs, use the names you provided in the
+        level 0 design when the corresponding signals are found in other levels of
+        the design.
+
+        A second common error in design is to fail to consider that all inputs and
+        outputs must be measurable which will become obvious during the testing
+        and verification phase of the design process. Did you consider testability
+        when choosing signals? If not, edit your design. If you are comfortable
+        with your level 0 design, select the print pdf option to create an image of
+        your level 0 design.
+
+        <br><br>
+
+        <button onclick="generatePDF()">Print PDF</button>
+    </div>
   
 </body>
 </html>
