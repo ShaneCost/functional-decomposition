@@ -165,78 +165,90 @@ document.addEventListener('DOMContentLoaded', function() {
         outp--;
     }
 
+    const colors = [
+        'color-1', 'color-2', 'color-3', 'color-4', 'color-5',
+        'color-6', 'color-7', 'color-8', 'color-9', 'color-10',
+        'color-11', 'color-12', 'color-13', 'color-14', 'color-15',
+        'color-16', 'color-17', 'color-18', 'color-19', 'color-20',
+        'color-21', 'color-22', 'color-23', 'color-24', 'color-25',
+        'color-26', 'color-27', 'color-28', 'color-29', 'color-30'
+    ];
+
     function populateDiagram() {
         // Collect the correct div, clear it, and make it visible
-        const submission_container = document.getElementById('submission-container')
-        submission_container.innerHTML = ''
-        submission_container.style.display = 'flex'
-
+        const submission_container = document.getElementById('submission-container');
+        submission_container.innerHTML = '';
+        submission_container.style.display = 'flex';
+    
         // Create and add header
         let header = document.createElement("h2");
         header.innerHTML = document.getElementById("project-name").value + ": Level 0 Design";
         submission_container.appendChild(header);
-
+    
         // Create div for diagram
-        const diagram = document.createElement('div')
-        diagram.setAttribute('id', 'diagram')
-        submission_container.appendChild(diagram)
-
+        const diagram = document.createElement('div');
+        diagram.setAttribute('id', 'diagram');
+        submission_container.appendChild(diagram);
+    
         // Create input section
-        const inputSection = document.createElement('div')
-        inputSection.setAttribute('class', 'input-section')
-        diagram.appendChild(inputSection)
-
+        const inputSection = document.createElement('div');
+        inputSection.setAttribute('class', 'input-section');
+        diagram.appendChild(inputSection);
+    
         // Create box for module 
-        const module = document.createElement('div')
-        module.setAttribute('class', 'module')
-        const module_name = document.createElement('p')
-        module_name.setAttribute('id', 'module-name')
-        module.appendChild(module_name)
-        diagram.appendChild(module)
-        
+        const module = document.createElement('div');
+        module.setAttribute('class', 'module');
+        const module_name = document.createElement('p');
+        module_name.setAttribute('id', 'module-name');
+        module.appendChild(module_name);
+        diagram.appendChild(module);
+    
         // Create output section
-        const outputSection = document.createElement('div')
-        outputSection.setAttribute('class', 'input-section')
-        diagram.appendChild(outputSection)
-
+        const outputSection = document.createElement('div');
+        outputSection.setAttribute('class', 'input-section');
+        diagram.appendChild(outputSection);
+    
         // Collect input and output data
         const inputs = document.querySelectorAll('#inputs input[id^="input-"]');
         const outputs = document.querySelectorAll('#outputs input[id^="output-"]');
         const moduleName = document.getElementById('module-name').value;
-        
+    
         // Collect module name
         const moduleElement = document.querySelector('.module p');
         
+        color_num = 0
+
         // Add inputs to diagram
-        inputs.forEach(input => {
+        inputs.forEach((input, index) => {
             if (!input.id.startsWith('input-description-')) {
                 const p = document.createElement('p');
                 p.innerHTML = input.value + '<span class="arrow">&rarr;</span>';
+                p.classList.add(colors[color_num++]); // Assign color
                 inputSection.appendChild(p);
             }
         });
-
+    
         // Add outputs to diagram
-        outputs.forEach(output => {
+        outputs.forEach((output, index) => {
             if (!output.id.startsWith('output-description-')) {
                 const p = document.createElement('p');
                 p.innerHTML = '<span class="arrow">&rarr;</span>&nbsp;&nbsp;&nbsp;&nbsp;' + output.value;
+                p.classList.add(colors[color_num++]); // Assign color
                 outputSection.appendChild(p);
             }
         });
-        
+    
         // Add module name
         moduleElement.textContent = moduleName;      
-
     }
-
-    function createTable(){
+    
+    function createTable() {
         // Get the correct div
         let div = document.getElementById("submission-container");
-
+    
         // Create table element
         let table = document.createElement('table');
-
+    
         // First row
         let row1 = document.createElement('tr');
         let cell1 = document.createElement('td');
@@ -244,53 +256,59 @@ document.addEventListener('DOMContentLoaded', function() {
         cell1.innerHTML = '<b>Module Name: </b>' + document.getElementById('module-name').value;
         row1.appendChild(cell1);
         table.appendChild(row1);
-
+    
         // Second row
         let row2 = document.createElement('tr');
         let cell2_1 = document.createElement('td');
         cell2_1.innerHTML = '<b>Inputs</b>';
         let cell2_2 = document.createElement('td');
+        
+        color_num = 0;
 
         // Collecting initial inputs
         let input1 = document.getElementById('input-1');
         let input1Description = document.getElementById('input-description-1');
-        cell2_2.innerHTML += '<li><b>' + input1.value + '</b>: ' + input1Description.value + '</li>';
-
+        let input1Color = colors[color_num++]; // Assign color
+        cell2_2.innerHTML += `<li><span class="${input1Color}"><b>${input1.value}</b></span>: ${input1Description.value}</li>`;
+    
         // Collecting dynamically added inputs
         let inputs = inputsContainer.querySelectorAll('div');
-        inputs.forEach(function(div) {
+        inputs.forEach(function(div, index) {
             let input = div.querySelector('input[id^="input-"]');
             let inputDescription = div.querySelector('input[id^="input-description-"]');
-            cell2_2.innerHTML += '<li><b>' + input.value + '</b>: ' + inputDescription.value + '</li>';
+            let inputColor = colors[color_num++]; // Assign color
+            cell2_2.innerHTML += `<li><span class="${inputColor}"><b>${input.value}</b></span>: ${inputDescription.value}</li>`;
         });
-
+    
         row2.appendChild(cell2_1);
         row2.appendChild(cell2_2);
         table.appendChild(row2);
-
+    
         // Third row
         let row3 = document.createElement('tr');
         let cell3_1 = document.createElement('td');
         cell3_1.innerHTML = '<b>Outputs</b>';
         let cell3_2 = document.createElement('td');
-
+    
         // Collecting initial outputs
         let output1 = document.getElementById('output-1');
         let output1Description = document.getElementById('output-description-1');
-        cell3_2.innerHTML += '<li><b>' + output1.value + '</b>: ' + output1Description.value + '</li>';
-
+        let output1Color = colors[color_num++]; // Assign color
+        cell3_2.innerHTML += `<li><span class="${output1Color}"><b>${output1.value}</b></span>: ${output1Description.value}</li>`;
+    
         // Collecting dynamically added outputs
         let outputs = outputsContainer.querySelectorAll('div');
-        outputs.forEach(function(div) {
+        outputs.forEach(function(div, index) {
             let output = div.querySelector('input[id^="output-"]');
             let outputDescription = div.querySelector('input[id^="output-description-"]');
-            cell3_2.innerHTML += '<li><b>' + output.value + '</b>: ' + outputDescription.value + '</li>';
+            let outputColor = colors[color_num++]; // Assign color
+            cell3_2.innerHTML += `<li><span class="${outputColor}"><b>${output.value}</b></span>: ${outputDescription.value}</li>`;
         });
-
+    
         row3.appendChild(cell3_1);
         row3.appendChild(cell3_2);
         table.appendChild(row3);
-
+    
         // Fourth row
         let row4 = document.createElement('tr');
         let cell4 = document.createElement('td');
@@ -298,12 +316,12 @@ document.addEventListener('DOMContentLoaded', function() {
         cell4.innerHTML = '<b>Functionality: </b>' + document.getElementById('functionality').value;
         row4.appendChild(cell4);
         table.appendChild(row4);
-
+    
         // Append table to container
         div.appendChild(table);
         div.appendChild(document.createElement('br'));
-
-        document.getElementById('feedback-container').style.display = 'block'
+    
+        document.getElementById('feedback-container').style.display = 'block';
     }
  
 });

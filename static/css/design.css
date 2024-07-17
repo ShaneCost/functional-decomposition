@@ -89,6 +89,7 @@ th, td {
     width: 10px;
     font-size: 2em; /* Adjust this value to make the arrow longer or shorter */
     padding: 0.5em 0.5em; /* Add horizontal padding to make the arrow appear longer */
+    color: black;
 }
 
 #diagram {
@@ -131,4 +132,95 @@ th, td {
 
 #feedback-container {
     display: none;
+}
+
+.color-1 {
+    color: #FF5733;
+}
+.color-2 {
+    color: #33FF57;
+}
+.color-3 {
+    color: #3357FF;
+}
+.color-4 {
+    color: #FF33A8;
+}
+.color-5 {
+    color: #A833FF;
+}
+.color-6 {
+    color: #33FFD2;
+}
+.color-7 {
+    color: #FFD233;
+}
+.color-8 {
+    color: #FF8F33;
+}
+.color-9 {
+    color: #8FFF33;
+}
+.color-10 {
+    color: #338FFF;
+}
+.color-11 {
+    color: #FF3380;
+}
+.color-12 {
+    color: #8033FF;
+}
+.color-13 {
+    color: #33FF80;
+}
+.color-14 {
+    color: #FF8033;
+}
+.color-15 {
+    color: #3380FF;
+}
+.color-16 {
+    color: #FF33D2;
+}
+.color-17 {
+    color: #D233FF;
+}
+.color-18 {
+    color: #33FFB8;
+}
+.color-19 {
+    color: #FFB833;
+}
+.color-20 {
+    color: #B8FF33;
+}
+.color-21 {
+    color: #33B8FF;
+}
+.color-22 {
+    color: #FF33B8;
+}
+.color-23 {
+    color: #B833FF;
+}
+.color-24 {
+    color: #33FF8F;
+}
+.color-25 {
+    color: #FF8F33;
+}
+.color-26 {
+    color: #8FFF33;
+}
+.color-27 {
+    color: #33B8FF;
+}
+.color-28 {
+    color: #FF338F;
+}
+.color-29 {
+    color: #8F33FF;
+}
+.color-30 {
+    color: #33FF8F;
 }
