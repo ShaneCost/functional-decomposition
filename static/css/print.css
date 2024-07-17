@@ -1,0 +1,179 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f8ff; /* light blue background */
+    font-family: Arial, Helvetica, sans-serif;
+    display: block;
+}
+
+.container {
+    background-color: #f8f9fa; /* grey box background */
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1,
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+button,
+a {
+    display: block;
+    width: 150px; /* Adjust width as needed */
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px;
+    background-color: #007bff; /* blue button color */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover,
+a:hover {
+    background-color: #0056b3; /* darker blue on hover */
+}
+
+.back-button {
+    display: inline-flex;
+    justify-content: center;
+    right: 10px;
+    position: relative;
+    color: #007bff;
+    background-color: #f0f8ff;
+}
+
+.back-button:hover{
+    color: #0056b3;
+    background-color: #f0f8ff;
+    position: relative;
+}
+
+#button-container {
+    display: flex;
+}
+
+#complete-button {
+    background-color: green;
+}
+
+#complete-button:hover {
+    background-color: darkgreen;
+}
+
+input {
+    box-sizing: content-box;
+    padding: 2px;
+    margin: 2px;
+}
+
+#inputs, 
+#outputs {
+    border-color: black;
+    border: 10px;
+    border-width: 1px;
+    border-radius: 5%;
+}
+
+.remove-button {
+    background-color: red;
+    border-radius: 50%;
+    display: inline-flex; /* Use flexbox to center content */
+    align-items: center; /* Vertically center items */
+    justify-content: center; /* Horizontally center items */
+    width: 15px; /* Adjust width as needed */
+    height: 15px; /* Adjust height as needed */
+    font-size: 10px;
+    
+}
+
+.remove-button:hover {
+    background-color: darkred;
+}
+
+#submission-container {
+    display: none;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center the children horizontally */
+    text-align: center; /* Center the text inside the children */
+}
+
+#submission-container h2 {
+    display: block; /* Ensure the header is block display */
+}
+
+table {
+    border-collapse: collapse;
+    width: 60%; 
+    margin: 0 auto; /* Center the table horizontally */
+}
+
+table, th, td {
+    border: 1px solid black; /* Add borders to the table and cells */
+    padding: 10px; /* Add padding to cells */
+}
+
+th, td {
+    text-align: left; /* Align text to the left inside cells */
+}
+
+.arrow {
+    display: inline-flex;
+    font-weight: 900;
+    width: 10px;
+    font-size: 2em; /* Adjust this value to make the arrow longer or shorter */
+    padding: 0.5em 0.5em; /* Add horizontal padding to make the arrow appear longer */
+}
+
+#diagram {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    align-items: center;
+    align-self: center;
+    width: 70%;
+}
+
+.input-section, .output-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 0 20px;
+}
+
+.module {
+    border: 2px solid black;
+    padding: 20px;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.module p {
+    margin: 0;
+    font-weight: bold;
+    width: 100%;
+    height: 100%;
+}
+
+.input-section p, .output-section p {
+    margin: 3px 0;
+}
+
+#generated-image {
+    margin-top: 20px;
+}
+
+#feedback-container {
+    display: none;
+}

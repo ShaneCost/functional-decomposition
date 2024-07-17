@@ -8,3 +8,6 @@ class LandingPageView(TemplateView):
 
 class LevelZeroDesignPageView(TemplateView):
     template_name = "level_0_design.html"
+
+class PrintView(TemplateView):
+    template_name = "level_0_design.html"

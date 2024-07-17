@@ -304,34 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
         div.appendChild(document.createElement('br'));
 
         document.getElementById('feedback-container').style.display = 'block'
-
-        // const pdfButton = document.createElement('button')
-        // pdfButton.textContent = 'Print PDF'
-
-        // pdfButton.addEventListener('click', function() {
-        //     generatePDF();
-        // });
-
-        // div.appendChild(pdfButton)
     }
-
-    // function generatePDF(name){
-    //     let mywindow = window.open('x', 'PRINT', 'height=650,width=900,top=100,left=150');
-    
-    //     mywindow.document.write(`<html><head><title></title>`);
-    //     mywindow.document.write('<link rel="stylesheet" href="http://127.0.0.1:8000/static/css/design.css">')
-    //     mywindow.document.write('</head><body >');
-    //     mywindow.document.write(document.getElementById('submission-container').innerHTML);
-    //     mywindow.document.write('</body></html>');
-    
-    //     mywindow.document.close(); // necessary for IE >= 10
-    //     mywindow.focus(); // necessary for IE >= 10*/
-    
-    //     mywindow.print();
-    //     mywindow.close();
-    
-    //     return true;
-    // }
  
 });
 
@@ -341,18 +314,20 @@ function adjustInputSize(input) {
 }
 
 function generatePDF(){
-    let mywindow = window.open('PDF', 'PRINT', 'height=650,width=900,top=100,left=150');
+    let mywindow = window.open('print', 'PRINT', 'height=650,width=650,top=100,left=100');
 
     mywindow.document.write(`<html><head><title>Functional Decomposition</title>`);
     mywindow.document.write('<link rel="stylesheet" href="http://127.0.0.1:8000/static/css/design.css">')
-    mywindow.document.write('</head><body>');
+    mywindow.document.write('</head><body><br>');
     mywindow.document.write(document.getElementById('submission-container').innerHTML);
     mywindow.document.write('</body></html>');
 
     mywindow.document.close(); 
 
-    mywindow.print();
-    mywindow.close();
+    mywindow.onload = function() {
+        mywindow.print();
+        mywindow.close();
+    };
 
     return true;
 }
