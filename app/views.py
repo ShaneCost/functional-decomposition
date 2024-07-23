@@ -11,3 +11,6 @@ class LevelZeroDesignPageView(TemplateView):
 
 class PrintView(TemplateView):
     template_name = "level_0_design.html"
+
+def save_data(request):
+    pass

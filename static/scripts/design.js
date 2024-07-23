@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         populateDiagram();
         createTable();
+        saveData();
         console.log('Form submitted!');
     });
 
@@ -322,6 +323,110 @@ document.addEventListener('DOMContentLoaded', function() {
         div.appendChild(document.createElement('br'));
     
         document.getElementById('feedback-container').style.display = 'block';
+    }
+
+    function saveData() {
+        var project_name = document.getElementById('project-name').value
+        var module_name = document.getElementById('module-name').value
+
+        let inputs = []
+
+        // Collecting initial inputs
+        let input1 = document.getElementById('input-1');
+        let input1Description = document.getElementById('input-description-1');
+        
+        input1 = {
+            name: input1,
+            description: input1Description
+        }
+
+        inputs.push(input1)
+    
+        // Collecting dynamically added inputs
+        let inputs_2 = inputsContainer.querySelectorAll('div');
+        inputs_2.forEach(function(div, index) {
+            let inputName = div.querySelector('input[id^="input-"]');
+            let inputDescription = div.querySelector('input[id^="input-description-"]');
+            
+            input = {
+                name: inputName,
+                description: inputDescription
+            }
+
+            inputs.push(input)
+            
+        });
+
+        let outputs = []
+
+        //Collecting initial outputs
+        let output1 = document.getElementById('output-1')
+        let output1Description = document.getElementById('output-description-1')
+
+        output1 = {
+            name: output1,
+            description: output1Description
+        }
+
+        outputs.push(output1)
+
+        //Collecting dynamically added outputs
+        let outputs_2 = outputsContainer.querySelectorAll('div')
+        outputs_2.forEach(function(div, index){ 
+            let outputName = div.querySelector('input[id^="output-"]');
+            let outputDescription = div.querySelector('input[id^="output-description-"]');
+
+            output = {
+                name: outputName,
+                description: outputDescription
+            }
+
+            outputs.push(output)
+        });
+
+
+        var functionality = document.getElementById('functionality').value
+
+        var current_date = new Date()
+        var current_time = current_date.getTime()
+
+        let data = {
+            project_name: project_name,
+            module_name: module_name,
+            inputs: inputs,
+            outputs: outputs,
+            functionality: functionality,
+            date: current_date,
+            time: current_time
+        }
+
+        const url = "{% url 'save_data' %}" // URL for django backend
+
+        // Post data to backend
+        const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify(data)
+            };
+        
+            fetch(url, options)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json(); // Get return values from backend if request successful 
+                })
+                .then(data => {
+                    console.log('Response from server:', data);
+                    location.reload() // Reload page to load the users next student response 
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+
     }
  
 });
