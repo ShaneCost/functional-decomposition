@@ -332,8 +332,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let inputs = []
 
         // Collecting initial inputs
-        let input1 = document.getElementById('input-1');
-        let input1Description = document.getElementById('input-description-1');
+        let input1 = document.getElementById('input-1').value;
+        let input1Description = document.getElementById('input-description-1').value;
         
         input1 = {
             name: input1,
@@ -345,8 +345,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Collecting dynamically added inputs
         let inputs_2 = inputsContainer.querySelectorAll('div');
         inputs_2.forEach(function(div, index) {
-            let inputName = div.querySelector('input[id^="input-"]');
-            let inputDescription = div.querySelector('input[id^="input-description-"]');
+            let inputName = div.querySelector('input[id^="input-"]').value;
+            let inputDescription = div.querySelector('input[id^="input-description-"]').value;
             
             input = {
                 name: inputName,
@@ -360,8 +360,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let outputs = []
 
         //Collecting initial outputs
-        let output1 = document.getElementById('output-1')
-        let output1Description = document.getElementById('output-description-1')
+        let output1 = document.getElementById('output-1').value
+        let output1Description = document.getElementById('output-description-1').value
 
         output1 = {
             name: output1,
@@ -373,8 +373,8 @@ document.addEventListener('DOMContentLoaded', function() {
         //Collecting dynamically added outputs
         let outputs_2 = outputsContainer.querySelectorAll('div')
         outputs_2.forEach(function(div, index){ 
-            let outputName = div.querySelector('input[id^="output-"]');
-            let outputDescription = div.querySelector('input[id^="output-description-"]');
+            let outputName = div.querySelector('input[id^="output-"]').value;
+            let outputDescription = div.querySelector('input[id^="output-description-"]').value;
 
             output = {
                 name: outputName,
@@ -387,8 +387,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var functionality = document.getElementById('functionality').value
 
-        var current_date = new Date()
-        var current_time = current_date.getTime()
+        var current_date = new Date().toISOString().split('T')[0];
+        var current_time = new Date().toLocaleTimeString();
 
         let data = {
             project_name: project_name,
@@ -400,14 +400,17 @@ document.addEventListener('DOMContentLoaded', function() {
             time: current_time
         }
 
-        const url = "{% url 'save_data' %}" // URL for django backend
+        // const url = "{% url 'save_data' %}" // URL for django backend
+
+        const url = '/save_data/'
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         // Post data to backend
         const options = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
+                    'X-CSRFToken': csrfToken
                 },
                 body: JSON.stringify(data)
             };
@@ -421,7 +424,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(data => {
                     console.log('Response from server:', data);
-                    location.reload() // Reload page to load the users next student response 
                 })
                 .catch(error => {
                     console.error('There was a problem with the fetch operation:', error);

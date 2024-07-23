@@ -9,7 +9,6 @@ class Level0Design(models.Model):
     inputs = JSONField(default=list)  # Store inputs as a list of dictionaries
     outputs = JSONField(default=list)  # Store outputs as a list of dictionaries
     functionality = models.TextField(default='')
-
     date = models.TextField(default='')
     time = models.TextField(default='')
 
