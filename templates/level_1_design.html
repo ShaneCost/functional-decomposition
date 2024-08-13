@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 1 Design</title>
+    <link rel="stylesheet" href="{% static 'css/design.css' %}">
+    <script src="{% static 'scripts/design.js' %}"></script>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
+</head>
+<body>
+    <header>
+        <a href="{% url 'landing' %}" class="back-button"><u>Back to Homepage</u></a>
+    </header>
+
+    <h1>
+        Level 1 Design
+    </h1>
+
+    <div class="'container">
+        
+    </div>

@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
         // Create output section
         const outputSection = document.createElement('div');
-        outputSection.setAttribute('class', 'input-section');
+        outputSection.setAttribute('class', 'output-section');
         diagram.appendChild(outputSection);
     
         // Collect input and output data
@@ -438,21 +438,48 @@ function adjustInputSize(input) {
     input.setAttribute('size', input.value.length);
 }
 
+var has_level_1_button = false
+
 function generatePDF(){
     let mywindow = window.open('print', 'PRINT', 'height=650,width=650,top=100,left=100');
 
-    mywindow.document.write(`<html><head><title>Functional Decomposition</title>`);
-    mywindow.document.write('<link rel="stylesheet" href="http://127.0.0.1:8000/static/css/design.css">')
-    mywindow.document.write('</head><body><br>');
-    mywindow.document.write(document.getElementById('submission-container').innerHTML);
-    mywindow.document.write('</body></html>');
+    // Wait until the window is fully loaded before writing content to it
+    mywindow.document.write(`
+        <html>
+            <head>
+                <title>Functional Decomposition</title>
+                <link rel="stylesheet" href="http://127.0.0.1:8000/static/css/design.css" type="text/css" />
+            </head>
+            <body>
+                ${document.getElementById('print').innerHTML}
+            </body>
+        </html>
+    `);
 
-    mywindow.document.close(); 
+    mywindow.document.close(); // Close the document to ensure it's fully loaded
+    mywindow.focus(); // Focus on the new window
 
+    // Wait a moment for the content to render, then print
     mywindow.onload = function() {
         mywindow.print();
         mywindow.close();
     };
 
+
+    if(!has_level_1_button){
+        let container = document.getElementById('feedback-buttons');
+        let level1Url = container.getAttribute('data-level1-url');
+
+        let level_1 = document.createElement('a');
+        level_1.textContent = 'Proceed to Level 1 Design';
+        level_1.href = level1Url;
+
+        container.appendChild(level_1);
+
+        has_level_1_button = true;
+    }
+    
+
     return true;
+
 }

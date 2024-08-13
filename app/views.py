@@ -55,3 +55,6 @@ def save_data(request):
       
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
+class LevelOneDesignPageView(TemplateView):
+    template_name = "level_1_design.html"
