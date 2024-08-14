@@ -16,9 +16,18 @@ class Level0Design(models.Model):
         return self.project_name 
 
 class User(AbstractUser):
+    project_name = models.TextField(default='')
     
     def __str__(self):
         return self.username
+
+class Signals(models.Model):
+    user = models.ForeignKey('User', on_delete=models.CASCADE, null=True)
+    signal_name = models.TextField(default='')
+    signal_description = models.TextField(default='')
+
+    def __str__(self):
+        return self.signal_name
 
 
 

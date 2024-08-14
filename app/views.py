@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 import json
 from django.http import JsonResponse, HttpResponseForbidden
-from .models import Level0Design
+from .models import Level0Design, Signals
 
 # Create your views here.
 
@@ -34,7 +34,7 @@ def save_data(request):
         date = data.get('date')
         time = data.get('time')
 
-        # Create new data entry in database
+        # Create new Level0Design object in database
         new_design = Level0Design.objects.create(
             user=current_user,
             project_name=project_name,
@@ -48,6 +48,35 @@ def save_data(request):
 
         new_design.save()
 
+        # Handle signal creation
+        for input_signal in inputs:
+            signal_name = input_signal.get('name')
+            signal_description = input_signal.get('description')
+
+            # Check if the signal already exists
+            if not Signals.objects.filter(signal_name=signal_name).exists():
+                Signals.objects.create(
+                    user=current_user,
+                    signal_name=signal_name,
+                    signal_description=signal_description
+                )
+
+        for output_signal in outputs:
+            signal_name = output_signal.get('name')
+            signal_description = output_signal.get('description')
+
+            # Check if the signal already exists
+            if not Signals.objects.filter(signal_name=signal_name).exists():
+                Signals.objects.create(
+                    user=current_user,
+                    signal_name=signal_name,
+                    signal_description=signal_description
+                )
+
+        # Update the project name in our user object 
+        current_user.project_name = project_name
+        current_user.save()
+
         return JsonResponse({'message': 'Data saved successfully'})
     
     except json.JSONDecodeError:
@@ -58,3 +87,15 @@ def save_data(request):
 
 class LevelOneDesignPageView(TemplateView):
     template_name = "level_1_design.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Retrieve the current user
+        current_user = self.request.user
+        # Retrive  the project name
+        context['project_name'] = current_user.project_name
+        # Retrive all the signals
+        context['signals'] = Signals.objects.all()
+
+        return context
