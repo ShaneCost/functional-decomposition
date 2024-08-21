@@ -1,2 +1,10 @@
 @import url('base.css');
 @import url('design.css');
+
+.input-output {
+    padding: 7px;
+}
+
+#options-container {
+    display: none;
+}

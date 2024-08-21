@@ -3,15 +3,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        var signals = '{{ signals }}'
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Level 1 Design</title>
     <link rel="stylesheet" href="{% static 'css/design_1.css' %}">
     <script src="{% static 'scripts/design_1.js' %}"></script>
     <meta name="csrf-token" content="{{ csrf_token }}">
-
 </head>
 <body>
+    <!-- Hidden element to store JSON data -->
+    {{ signals|json_script:"signals" }}
+    
     <header>
         <a href="{% url 'landing' %}" class="back-button"><u>Back to Homepage</u></a>
     </header>
@@ -22,72 +27,83 @@
 
     <div class="container">
         <form id="main-form">
-            <p id="project-name"><b>Project Name:</b> {{ project_name }}</p>
+            <p id="project-name"><b>Project Name:</b> <span id='project-name-value'>{{ project_name }}</span></p>
             
             <label for="module-name"><b>Module Name:</b></label> 
             <input type="text" name="module-name" id="module-name" oninput="adjustInputSize(this)">
             
             <br><br>
             
-            <div id="inputs">
-                <label for="input-1"><b>Input 1:</b></label>&nbsp;&nbsp;&nbsp;
+            <div id="inputs" style="border: 2px black solid; border-radius: 0%;">
+                <div id="input-1" class ='input-output'>
+                    <label>&nbsp;&nbsp;<b>Input 1:</b></label>&nbsp;&nbsp;&nbsp;
 
-                <input type="radio" id="input-radio-select-1" value="select" name="input-entry-type-1" oninput="showChoice(this, 'input', 1)">
-                <label for="input-radio-select-1">Chose from existing signals</label>
+                    <input type="radio" id="input-radio-select-1" value="select" name="input-entry-type-1" oninput="showChoice(this, 'input', 1)">
+                    <label for="input-radio-select-1">Chose from existing signals</label>
 
-                <input type="radio" id="input-radio-custom-1" value="custom" name="input-entry-type-1" oninput="showChoice(this, 'input', 1)">
-                <label for="input-radio-custom-1">Create new signal</label>
+                    <input type="radio" id="input-radio-custom-1" value="custom" name="input-entry-type-1" oninput="showChoice(this, 'input', 1)">
+                    <label for="input-radio-custom-1">Create new signal</label>
 
-                <br><br>
+                    <br><br>
 
-                <div id="input-select-1" style="display: none;">   
-                    <select id="input-select-1" onchange="getDescription(this, 'input', 1)">
-                        <option value = "">Chose from existing signals</option>
-                        {% for entry in signals %}
-                            <option value = '{{ entry.signal_name }}' data-description='{{ entry.signal_description }}'> {{ entry.signal_name }} </option>
-                        {% endfor %}
-                    </select>
-                </div> 
+                    <div id="input-select-1" style="display: none;">   
+                        <select id="input-select-1-value" onchange="getDescription(this, 'input', 1)">
+                            <option value = "">Chose from existing signals</option>
+                            {% for entry in signals %}
+                                <option value = '{{ entry.signal_name }}' data-description='{{ entry.signal_description }}'> {{ entry.signal_name }} </option>
+                            {% endfor %}
+                        </select>
+                        <br><br>
+                    </div> 
 
-                <div id="input-custom-1" style="display: none;">
-                    <input type="text" name="input-1" id="input-1" oninput="adjustInputSize(this)" placeholder="Create new signal"><br>
-                     
+                    <div id="input-custom-1" style="display: none;">
+                        <input type="text" id="input-custom-1-value" oninput="adjustInputSize(this)" placeholder="Create new signal">
+                        <br><br>
+                    </div>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label for="input-description-1"><b>Input 1 Description :</b></label> 
+                    <input type="text" name="input-description-1" id="input-description-1" oninput="adjustInputSize(this)">
+
+                    <br><br>
                 </div>
-
-                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <label for="input-description-1"><b>Input 1 Description :</b></label> 
-                <input type="text" name="input-description-1" id="input-description-1" oninput="adjustInputSize(this)">
             </div>
 
             <br><br>
             
-            <div id="outputs">
-                <label for="output-1"><b>Output 1:</b></label>&nbsp;&nbsp;&nbsp;
-            
-                <input type="radio" id="output-radio-select-1" value="select" name="output-entry-type-1" oninput="showChoice(this, 'output', 1)">
-                <label for="output-radio-select-1">Choose from existing signals</label>
-            
-                <input type="radio" id="output-radio-custom-1" value="custom" name="output-entry-type-1" oninput="showChoice(this, 'output', 1)">
-                <label for="output-radio-custom-1">Create new signal</label>
-            
-                <br><br>
-            
-                <div id="output-select-1" style="display: none;">
-                    <select id="output-select-1" onchange="getDescription(this, 'output', 1)">
-                        <option value="">Choose from existing signals</option>
-                        {% for entry in signals %}
-                            <option value="{{ entry.signal_name }}" data-description="{{ entry.signal_description }}">{{ entry.signal_name }}</option>
-                        {% endfor %}
-                    </select>
+            <div id="outputs" style="border: 2px black solid; border-radius: 0%;">
+                <div id="output-1" class ='input-output'>
+                    <label>&nbsp;&nbsp;<b>Output 1:</b></label>&nbsp;&nbsp;&nbsp;
+                
+                    <input type="radio" id="output-radio-select-1" value="select" name="output-entry-type-1" oninput="showChoice(this, 'output', 1)">
+                    <label for="output-radio-select-1">Choose from existing signals</label>
+                
+                    <input type="radio" id="output-radio-custom-1" value="custom" name="output-entry-type-1" oninput="showChoice(this, 'output', 1)">
+                    <label for="output-radio-custom-1">Create new signal</label>
+                
+                    <br><br>
+                
+                    <div id="output-select-1" style="display: none;">
+                        <select id="output-select-1-value" onchange="getDescription(this, 'output', 1)">
+                            <option value="">Choose from existing signals</option>
+                            {% for entry in signals %}
+                                <option value="{{ entry.signal_name }}" data-description="{{ entry.signal_description }}">{{ entry.signal_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <br><br>
+                    </div>
+                
+                    <div id="output-custom-1" style="display: none;">
+                        <input type="text" id="output-custom-1-value" oninput="adjustInputSize(this)" placeholder="Create new signal">
+                        <br><br>
+                    </div>
+                
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label for="output-description-1"><b>Output 1 Description :</b></label>
+                    <input type="text" name="output-description-1" id="output-description-1" oninput="adjustInputSize(this)">
+
+                    <br><br>
                 </div>
-            
-                <div id="output-custom-1" style="display: none;">
-                    <input type="text" name="output-1" id="output-1" oninput="adjustInputSize(this)" placeholder="Create new signal"><br>
-                </div>
-            
-                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <label for="output-description-1"><b>Output 1 Description :</b></label>
-                <input type="text" name="output-description-1" id="output-description-1" oninput="adjustInputSize(this)">
             </div>
             
 
@@ -106,5 +122,25 @@
 
         </form>
     </div>
+
+    <div id="print">
+        <div class="container" id="submission-container">   
+        
+        </div>
+    </div>
+
+    <div class='container' id='options-container'>
+        <h3>
+            <i>Do you have any more level 1 modules to define? If so, select ‘add module’.
+            If your level 1 design is complete, select ‘Level 1 Design Complete’.</i>
+        </h3>
+
+        <div class='button-container'>
+            <button id='add-module'>Add Module</button>
+            <button>Level 1 Design Complete</button>
+        </div>
+
+    </div>
+    
 </body>
 {% endblock content %}    

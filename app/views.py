@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 import json
 from django.http import JsonResponse, HttpResponseForbidden
-from .models import Level0Design, Signals
+from .models import Level0Design, Signals, Level1Design
 
 # Create your views here.
 
@@ -20,8 +20,6 @@ def save_data(request):
         # Get the data from the POST request
         data = json.loads(request.body)
 
-        print("Incoming data:", data)
-
         # Get the current user + username
         current_user = request.user
 
@@ -33,19 +31,33 @@ def save_data(request):
         functionality = data.get('functionality')
         date = data.get('date')
         time = data.get('time')
+        type = data.get('type')
 
-        # Create new Level0Design object in database
-        new_design = Level0Design.objects.create(
-            user=current_user,
-            project_name=project_name,
-            module_name=module_name,
-            inputs=inputs,
-            outputs=outputs,
-            functionality=functionality,
-            date=date,
-            time=time
-        )
-
+        if(type == 0):
+            # Create new Level0Design object in database
+            new_design = Level0Design.objects.create(
+                user=current_user,
+                project_name=project_name,
+                module_name=module_name,
+                inputs=inputs,
+                outputs=outputs,
+                functionality=functionality,
+                date=date,
+                time=time
+            )
+        elif(type == 1):
+            # Create new Level1Design object in database
+            new_design = Level1Design.objects.create(
+                user=current_user,
+                project_name=project_name,
+                module_name=module_name,
+                inputs=inputs,
+                outputs=outputs,
+                functionality=functionality,
+                date=date,
+                time=time
+            ) 
+        
         new_design.save()
 
         # Handle signal creation
@@ -96,6 +108,8 @@ class LevelOneDesignPageView(TemplateView):
         # Retrive  the project name
         context['project_name'] = current_user.project_name
         # Retrive all the signals
-        context['signals'] = Signals.objects.all()
+        signals = Signals.objects.all()  # QuerySet
+        signals_data = [{'signal_name': signal.signal_name, 'signal_description': signal.signal_description} for signal in signals]
+        context['signals'] = signals_data
 
         return context

@@ -397,7 +397,8 @@ document.addEventListener('DOMContentLoaded', function() {
             outputs: outputs,
             functionality: functionality,
             date: current_date,
-            time: current_time
+            time: current_time,
+            type: 0
         }
 
         // const url = "{% url 'save_data' %}" // URL for django backend
